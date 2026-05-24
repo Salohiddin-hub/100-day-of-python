@@ -97,95 +97,106 @@ logo_10=r"""
 `----' `-'  `-' `---' `-'`----'    `----' `----'`---' `-' `-'`-' `-'`-'  `-'`-' ` `-'
 """
 
-players_data = [
+players_data =[
     {
         "logo": logo_1,
         "Name": "Messi",
-        "followers": "511 Million",
+        "followers": 511_000_000,
         "Status": "Active (Inter Miami)",
         "country": "Argentina"
     },
     {
         "logo": logo_2,
         "Name": "Ronaldinho",
-        "followers": "78 Million",
+        "followers": 78_000_000,
         "Status": "Retired",
         "country": "Brazil"
     },
     {
         "logo": logo_3,
         "Name": "Neymar",
-        "followers": "233 Million",
+        "followers": 233_000_000,
         "Status": "Active (Al-Hilal)",
         "country": "Brazil"
     },
     {
         "logo": logo_4,
         "Name": "Zidane",
-        "followers": "45 Million",
+        "followers": 45_000_000,
         "Status": "Retired",
         "country": "France"
     },
     {
         "logo": logo_5,
         "Name": "Benzema",
-        "followers": "75 Million",
+        "followers": 75_000_000,
         "Status": "Active (Al-Ittihad)",
         "country": "France"
     },
     {
         "logo": logo_6,
         "Name": "Modric",
-        "followers": "36 Million",
+        "followers": 36_000_000,
         "Status": "Active (Real Madrid)",
         "country": "Croatia"
     },
     {
         "logo": logo_7,
         "Name": "Salah",
-        "followers": "64 Million",
+        "followers": 64_000_000,
         "Status": "Active (Liverpool)",
         "country": "Egypt"
     },
     {
         "logo": logo_8,
         "Name": "Lewandowski",
-        "followers": "36 Million",
+        "followers": 36_000_000,
         "Status": "Active (FC Barcelona)",
         "country": "Poland"
     },
     {
         "logo": logo_9,
         "Name": "Mbappe",
-        "followers": "130 Million",
+        "followers": 130_000_000,
         "Status": "Active (Real Madrid)",
         "country": "France"
     },
     {
         "logo": logo_10,
         "Name": "Beckham",
-        "followers": "88 Million",
+        "followers": 88_000_000,
         "Status": "Retired",
-        "country": "United Kingdom"
-    }
-]
-
-r_player=random.choice(players_data)
-candidate=(f"{r_player['logo']}"
-f"{r_player['Name']}, "
-f"Who is {r_player['Status']}"
-f"from {r_player['country']} \n")
-r_player_2=random.choice(players_data)
-candidate_2=(f"{r_player_2['logo']}"
-f"{r_player_2['Name']}, "
-f"Who is {r_player_2['Status']} "
-f"from {r_player_2['country']} \n")
-def comparison():
-    if r_player['followers'] > r_player_2['followers']:
-        A=True
+        "country": "United Kingdom"}]
+# Random player will be chosen 
+def random_players():
+    r_player, r_player_2=random.sample(players_data, 2)
+    return r_player, r_player_2
+# Chosen player will be formatted like name, country and status
+def formatting(player):
+    candidate=(f"{player['logo']}"
+        f"{player['Name']}, "
+        f"Who is {player ['Status']}"
+        f"from {player['country']} \n")       
+    return candidate
+# Determines who is the real winner
+def comparison(player_a, player_b):
+    if player_a['followers'] > player_b['followers']:
+        return "A"
     else:
-        B=True
-print(f"Compare A: {candidate} \nAgainst B: {candidate_2}")
-user=input("Who has more followers? Type 'A' or 'B':")
-        
-    
+        return "B"
+# The program starts working here
+is_game_running = True
+score=0
+while is_game_running:
+    player_a, player_b = random_players()
+    candidate_1=formatting(player_a)
+    candidate_2= formatting(player_b)
+    correct_answer=comparison(player_a, player_b)
+    print(f"Compare A: {candidate_1} \nAgainst B: {candidate_2}")
+    user = input("Who has more followers? Type 'A' or 'B': ").upper()
+    if user == correct_answer:
+        score+=1
+        print(f"You are right! Your current score is {score}")
+    else:
+        print(f"You are wrong! Your final score is {score}")
+        is_game_running = False
